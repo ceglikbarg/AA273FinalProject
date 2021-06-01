@@ -13,9 +13,9 @@ n = length(t);
 %Constants
 Cc = 836800; 
 N = 2*10^-10;
-Kb = 470000;
-Pp = 20;
-Rp = 2;
+Kb = 470000; % bacteria heat coefficient, 
+Pp = 20; % peltier coefficient, W/A
+Rp = 2; % peltier resistance, ohms
 hA = 600*.0001;
 
 %OR model
@@ -134,21 +134,21 @@ figure()
 plot(t,x(1,:),t,mu(1,:))
 xlabel("Time (s) ")
 ylabel("Tc")
-title("EKF")
+title("EKF - T_C Output")
 legend(["True value", "Estimated value"],"Location","best")
 
 figure()
 plot(t,x(2,:),t,mu(2,:))
 xlabel("Time (s) ")
 ylabel("Tinf")
-title("EKF")
+title("EKF - T_\infty Output")
 legend(["True value", "Estimated value"],"Location","best")
 
 figure()
 plot(t,x(3,:),t,mu(3,:))
 xlabel("Time (s) ")
-ylabel("OR")
-title("EKF")
+ylabel("O_R")
+title("EKF - O_R Output")
 legend(["True value", "Estimated value"],"Location","best")
 
 figure()

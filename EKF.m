@@ -10,7 +10,7 @@ function [mu, cov] = EKF(mu0, cov0, tspan, y, f, g, u, A, C, Q, R)
         cov_p = At*(squeeze(cov(i-1,:,:)))*(At.') + Q;
         
         % Update
-        Ct = C(mu_p,u(tspan(i)));
+        Ct = C(mu_p,u(i,:));
         K = cov_p*(Ct.')/(Ct*cov_p*(Ct.')+R); % Kalman gain
         mu(i,:) = mu_p + K*(y(i-1,:).' - g(mu_p,u(i,:)));
         cov(i,:,:) = cov_p - K*Ct*cov_p;
