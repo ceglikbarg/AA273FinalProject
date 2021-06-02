@@ -4,6 +4,7 @@
 % Simulation constants
 constants.dt = 0.1;
 constants.tend= 3600;
+constants.filter = FilterTypes.iEKF;
 
 % System constants
 constants.mu_max = 0.806/3600; % max growth rate, 1/sec
@@ -20,7 +21,7 @@ constants.Rp = 2; % peltier resistance, ohms
 constants.Np = 10; % number of peltier units at this spec
 constants.hA = 1000*(100 * 0.01^2); % 1000 W/m^2/K * 10cm^2 of surface area
 constants.mf_in = 0.21;
-constants.S0 = 25; % concentration of substrate in feed, g/L
+constants.S0 = 12; % concentration of substrate in feed, g/L
 constants.pr = 1.2e5; % pressure in reactor, Pa
 
 % Initial Conditions
