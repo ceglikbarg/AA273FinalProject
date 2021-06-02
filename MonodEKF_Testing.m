@@ -89,6 +89,13 @@ plot(tspan, xs(:,3),'DisplayName','Q_{O2} Truth');
 plot(tspan, mus(:,3),'DisplayName','Q_{O2} EKF');
 legend();
 
+figure('Name', 'OR'); hold on;
+title('Oxygen Transfer Rate = Oxygen Uptake Rate');
+ylabel('O_R, moles O2/sec'); xlabel('time, sec');
+plot(tspan, xs(:,2).*xs(:,3),'DisplayName','O_R Truth');
+plot(tspan, mus(:,2).*mus(:,3),'DisplayName','O_R EKF');
+legend();
+
 figure('Name', 'Temps'); hold on;
 title('System Temperatures');
 ylabel('Temperature, deg F'); xlabel('time, sec');
