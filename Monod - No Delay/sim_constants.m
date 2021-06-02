@@ -2,7 +2,7 @@
 
 
 % Simulation constants
-constants.dt = 1;
+constants.dt = 30;
 constants.tend= 3600;
 constants.filter = FilterTypes.UKF;
 constants.num_particles = 50; % number of particles (only influences for PF)
@@ -56,3 +56,5 @@ constants.S_target = 5; % target substrate concentration, g/L
 constants.u0 = [constants.w; 0; 0; constants.Fo]; % initial control input
 constants.Ip_max = 10; % max amperage through peltier
 constants.Fs_max = 0.5/22.4; % max flow through oxygen input
+constants.Fs_PID = [1E-3; 1E-6; 0]; % PID coefficients for Fs control
+constants.IP_PID = [1.5; 0.001; 0];%[8.9545; 0.12704; 0]; % PID coefficients for Ip control

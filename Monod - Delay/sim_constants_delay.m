@@ -2,11 +2,11 @@
 
 
 % Simulation constants
-constants.dt = 0.75;
+constants.dt = 30;
 constants.tend= 3600;
 constants.filter = FilterTypes.EKF;
 constants.num_particles = 50; % number of particles (only influences for PF)
-constants.sample_interval = 20; % number of minor sampling intervals between major
+constants.sample_interval = 30; % number of minor sampling intervals between major
 
 % System constants
 constants.mu_max = 0.806/3600; % max growth rate, 1/sec
@@ -45,8 +45,8 @@ constants.R(2,2) = (0.002/2)^2; % D sensor has 0.2% by vol error
 constants.R(3,3) = (0.2/2)^2; % internal thermistor is +/- 0.2deg
 constants.R(4,4) = (1/2)^2; % external thermistor is +/- 1deg
 constants.R(5,5) = (0.05*V/2)^2; % volume measurement is +/- 0.05*initial volume
-constants.R(6,6) = (0.25/2)^2; % offline substrate measurements are very precise
-constants.R(7,7) = (0.25/2)^2; % offline cell measurements are very precise
+constants.R(6,6) = (0.01/2)^2; % offline substrate measurements are very precise
+constants.R(7,7) = (0.01/2)^2; % offline cell measurements are very precise
 
 constants.mu0 = constants.x0 + [-0.0004;-0.0001;-0.0000;0.0059;-0.0048;0.01];
 constants.cov0 = 1E-3*eye(length(constants.mu0));
@@ -59,13 +59,15 @@ constants.S_target = 5; % target substrate concentration, g/L
 constants.u0 = [constants.w; 0; 0; constants.Fo]; % initial control input
 constants.Ip_max = 10; % max amperage through peltier
 constants.Fs_max = 0.5/22.4; % max flow through oxygen input
+constants.Fs_PID = [1E-3; 1E-6; 0]; % PID coefficients for Fs control
+constants.IP_PID = [0.5; 0.001; 0]; %[8.9545; 0.12704; 5.7234]; % PID coefficients for Ip control
 
 
 %% Add state stuff for sample delay times
 n = length(constants.mu0);
 newQ = eye(n+2*constants.sample_interval);
 newQ(1:n,1:n) = constants.Q;
-newQ(n+1:end,n+1:end) = 1E-14; % very small process noise for delay terms
+newQ(n+1:end,n+1:end) = 1E-14*constants.dt; % very small process noise for delay terms
 constants.Q = newQ;
 constants.x0 = [constants.x0; repmat(constants.x0(1:2),constants.sample_interval,1)];
 constants.mu0 = [constants.mu0; repmat(constants.mu0(1:2),constants.sample_interval,1)];
