@@ -2,7 +2,7 @@ function plotsim(constants, tout, x, mu, cov, y, u, targ, targ_err)
     c1 = [0.9290 0.6940 0.1250];
     c2 = [0.4940 0.1840 0.5560];
     filters = {'EKF','iEKF','UKF','PF'};
-    filter = filters{constants.filter};
+    filter = filters{constants.filter+1};
     %% SIM OUTPUT
     figure('Name','Concentrations'); hold on;
     title('Substrate and Cell Concentrations');

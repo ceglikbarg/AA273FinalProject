@@ -2,7 +2,7 @@
 
 
 % Simulation constants
-constants.dt = 0.1;
+constants.dt = 1;
 constants.tend= 3600;
 constants.filter = FilterTypes.UKF;
 constants.num_particles = 50; % number of particles (only influences for PF)
