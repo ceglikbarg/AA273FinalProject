@@ -7,6 +7,7 @@ constants.tend= 3600;
 constants.filter = FilterTypes.EKF;
 constants.num_particles = 50; % number of particles (only influences for PF)
 constants.sample_interval = 30; % number of minor sampling intervals between major
+constants.delay_time = 10; % number of minor sampling instants by which off-line measurements are delayed
 
 % System constants
 constants.mu_max = 0.806/3600; % max growth rate, 1/sec
@@ -65,12 +66,12 @@ constants.IP_PID = [0.5; 0.001; 0]; %[8.9545; 0.12704; 5.7234]; % PID coefficien
 
 %% Add state stuff for sample delay times
 n = length(constants.mu0);
-newQ = eye(n+2*constants.sample_interval);
+newQ = eye(n+2*constants.delay_time);
 newQ(1:n,1:n) = constants.Q;
 newQ(n+1:end,n+1:end) = 1E-14*constants.dt; % very small process noise for delay terms
 constants.Q = newQ;
-constants.x0 = [constants.x0; repmat(constants.x0(1:2),constants.sample_interval,1)];
-constants.mu0 = [constants.mu0; repmat(constants.mu0(1:2),constants.sample_interval,1)];
-newcov = 1E-3*eye(n+2*constants.sample_interval);
+constants.x0 = [constants.x0; repmat(constants.x0(1:2),constants.delay_time,1)];
+constants.mu0 = [constants.mu0; repmat(constants.mu0(1:2),constants.delay_time,1)];
+newcov = 1E-3*eye(n+2*constants.delay_time);
 newcov(1:n,1:n) = constants.cov0;
 constants.cov0 = newcov;
